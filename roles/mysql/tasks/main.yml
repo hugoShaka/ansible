@@ -31,7 +31,7 @@
     state: absent
     login_user: root
     login_password: "{{mysql_root_new_pass}}"
- 
+
 - name: MySQL - Remove mysql test database
   mysql_db:
     name: test 

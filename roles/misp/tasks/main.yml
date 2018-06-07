@@ -78,6 +78,7 @@
 
 ######### MISP REPOSITORY #########
 
+# TODO(shaka) : checkout to a revision tag, do not use master
 - name: Clone MISP repository
   become: true
   become_user: misp
@@ -86,7 +87,7 @@
     dest: "/opt/misp-server/misp"
     recursive: yes
     force: no
-    update: no
+    update: no #TODO(shaka) check this, is it secure ? how to update misp ?
     accept_hostkey: yes
 
 - name: Configure Git
@@ -106,6 +107,7 @@
     - "/opt/misp-server/misp/app/files/scripts/python-cybox"
     - "/opt/misp-server/misp/app/files/scripts/python-stix"
 
+# TODO(shaka) : Can't we use pip to manage such dependencies ? Should be cleaned
 - name: Clone MISP depedencies | Python-Cybox
   become: true
   become_user: misp
@@ -146,6 +148,7 @@
 
 ######### CAKE PHP #########
 
+# TODO(shaka) : can we handle composer install using package ?
 - name: Curl PHP installer
   shell: "{{ item }}"
   args:
@@ -249,12 +252,12 @@
 ######### ADD-ON #########
 
 - name: Install ZeroMQ
-  pip: 
+  pip:
     name: pyzmq
     state: latest
 
 - name: Install Python client for Redis
-  pip: 
+  pip:
     name: redis
     state: latest
 
@@ -302,6 +305,7 @@
   with_items:
     - .my.cnf
 
+# TODO(shaka) : can't we use the mysql module instead of shell ?
 - name: MySQL | Initialize MISP database
   shell: "{{ item }}"
   with_items:
@@ -321,16 +325,16 @@
 
 - name: Configure and enable MISP backup
   include: backup.yml
-  when: enable_auto_backup == 'y'
+  when: enable_auto_backup == 'y' #TODO(shaka): it may be better with boolean
 
 ####### NEW DATA LOCATION #######
 
 - name: Change DATA location of MISP
   include: new_data_location.yml
-  when: data_location != '/opt/misp-server/misp/app'
+  when: data_location != '/opt/misp-server/misp/app' #TODO(shaka): the comparision should be between new_datalocation and old_datalocation
 
 #######   MISP-MODULES    #######
 
 - name: Install misp-modules
   include: modules.yml
-  when: install_modules == 'y'
+  when: install_modules == 'y' # TODO(shaka): it may be better with boolean
