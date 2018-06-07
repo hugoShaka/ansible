@@ -1,0 +1,24 @@
+---
+- name: Install all needed packages
+  apt:
+    pkg: "{{ item }}"
+    state: latest
+    update_cache: yes
+  with_items: 
+    - gcc
+    - zip
+    - php-pear
+    - git
+    - redis-server
+    - make
+    - python-dev
+    - python-pip
+    - libxml2-dev
+    - libxslt1-dev
+    - zlib1g-dev
+    - php5-dev
+    - curl
+    - gnupg-agent
+    - php5-mysql
+    - php5-redis
+
