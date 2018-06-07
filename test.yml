@@ -1,0 +1,17 @@
+---
+- hosts: all
+  become: true
+  roles:
+    - { role: mysql}
+    - { role: misp}
+    - { role: nginx}
+
+  vars:
+    proxy_host: ""
+    proxy_port: ""
+    servername: "testserver"
+    mysql_root_old_pass: ""
+    mysql_root_new_pass: "Str0ngP@ssword,!=hunter1"
+    mysql_misp_password: "StrongerP@ssword,!=password123"
+    enable_auto_backup: "y"
+    install_modules: "n"
