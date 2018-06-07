@@ -12,8 +12,8 @@
 
 - name: MySQL - Update mysql root passwd
   mysql_user:
-    name: root 
-    host: "{{item}}" 
+    name: root
+    host: "{{item}}"
     password: "{{mysql_root_new_pass}}"
     login_user: root
     login_password: "{{mysql_root_old_pass}}"
@@ -27,14 +27,14 @@
 
 - name: MySQL - Delete anonymous mysql user
   mysql_user:
-    name: "" 
+    name: ""
     state: absent
     login_user: root
     login_password: "{{mysql_root_new_pass}}"
 
 - name: MySQL - Remove mysql test database
   mysql_db:
-    name: test 
+    name: test
     state: absent
     login_user: root
     login_password: "{{mysql_root_new_pass}}"

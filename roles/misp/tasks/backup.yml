@@ -9,7 +9,7 @@
     group: misp-server
     mode: 02775
     state: directory
-  with_items: 
+  with_items:
     - "{{data_location}}/backup"
 
 - name: Copy backup script

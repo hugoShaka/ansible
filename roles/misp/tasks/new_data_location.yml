@@ -87,7 +87,7 @@
     force: yes
     owner: misp
     group: misp-server
-    mode: 777
+    mode: 0777
 
 # Copy with SHELL since Ansible does not currently support recursive remote copying
 - name: Copy MISP file data directory to /DATA
@@ -112,4 +112,4 @@
     force: yes
     owner: misp
     group: misp-server
-    mode: 777
+    mode: 0777

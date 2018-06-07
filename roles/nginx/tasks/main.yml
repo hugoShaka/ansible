@@ -1,18 +1,18 @@
 ---
 
 - name: Install all needed packages
-  apt: 
+  apt:
     pkg: "{{ item }}"
     state: latest
     update_cache: yes
-  with_items: 
+  with_items:
     - nginx
     - php5-fpm
 
 ######### WEB-SERVER CONFIGURATION #########
 
 - name: Make NGINX SSL directory
-  file: 
+  file:
     path: /etc/nginx/ssl
     state: directory
     owner: root
@@ -30,7 +30,7 @@
   register: nginx_init
 
 - name: Copy Nginx site configurations
-  template: 
+  template:
     src: nginx/{{item}}
     dest: /etc/nginx/sites-available/{{item}}
     force: no

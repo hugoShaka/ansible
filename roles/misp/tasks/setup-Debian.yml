@@ -1,11 +1,11 @@
 ---
 
 - name: Install all needed packages
-  apt: 
+  apt:
     pkg: "{{ item }}"
     state: latest
     update_cache: yes
-  with_items: 
+  with_items:
     - gcc
     - zip
     - php-pear

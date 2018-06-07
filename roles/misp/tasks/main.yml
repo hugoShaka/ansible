@@ -6,7 +6,7 @@
     state: present
 
 - name: Create Ansible directory
-  file: 
+  file:
     path: "/home/misp/ansible"
     owner: misp
     group: misp
@@ -37,7 +37,7 @@
     state: present
 
 - name: Add www-data in misp-server
-  user: 
+  user:
     name: www-data
     append: yes
     groups: misp-server
@@ -51,7 +51,7 @@
     group: misp-server
     mode: 02775
     state: directory
-  with_items: 
+  with_items:
     - "/opt/misp-server"
     - "/opt/misp-server/misp"
     - "/opt/misp-server/tmp"
@@ -82,7 +82,7 @@
 - name: Clone MISP repository
   become: true
   become_user: misp
-  git: 
+  git:
     repo: "https://github.com/MISP/MISP.git"
     dest: "/opt/misp-server/misp"
     recursive: yes
@@ -97,7 +97,7 @@
     value: false
 
 - name: Create scripts directories
-  file: 
+  file:
     path: "{{ item }}"
     owner: misp
     group: misp-server
@@ -111,7 +111,7 @@
 - name: Clone MISP depedencies | Python-Cybox
   become: true
   become_user: misp
-  git: 
+  git:
     repo: "https://github.com/CybOXProject/python-cybox.git"
     dest: "/opt/misp-server/misp/app/files/scripts/python-cybox"
     force: no
@@ -121,7 +121,7 @@
 - name: Clone MISP depedencies | Python-Stix
   become: true
   become_user: misp
-  git: 
+  git:
     repo: "https://github.com/STIXProject/python-stix.git"
     dest: "/opt/misp-server/misp/app/files/scripts/python-stix"
     force: no
@@ -199,7 +199,7 @@
 ######### MISP CONFIGURATION #########
 
 - name: Copy MISP configuration files
-  template: 
+  template:
     src: "misp/config/{{item}}"
     dest: "/opt/misp-server/misp/app/Config/{{item}}"
     force: yes
@@ -215,7 +215,7 @@
 ######### GNUPG #########
 
 - name: Create the directory for GNUPG
-  file: 
+  file:
     path: "/opt/misp-server/misp/.gnupg"
     owner: misp
     group: misp-server
@@ -225,7 +225,7 @@
 ######### MISP WORKERS #########
 
 - name: Check MISP worker launcher permissions
-  file: 
+  file:
     path: /opt/misp-server/misp/app/Console/worker/start.sh
     owner: misp
     group: misp-server
@@ -245,7 +245,7 @@
     group: misp-server
     mode: 02775
     state: directory
-  with_items: 
+  with_items:
     - "/opt/misp-server/misp/app"
     - "/opt/misp-server/misp/app/tmp"
 
@@ -284,7 +284,7 @@
   register: mysql_init
 
 - name: MySQL | Create password file
-  template: 
+  template:
     src: "mysql/{{item}}"
     dest: "/home/misp/{{item}}"
     force: no
@@ -295,7 +295,7 @@
     - .my.cnf
 
 - name: MySQL | Create password file for root
-  template: 
+  template:
     src: "mysql/{{item}}"
     dest: "/root/{{item}}"
     force: no
