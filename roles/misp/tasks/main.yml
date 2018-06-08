@@ -231,12 +231,28 @@
     group: misp-server
     mode: 0764
 
-- name: Check MISP worker autolaunch at boot
+- name: Setup MISP worker autolaunch at boot (upstart and init.V)
   lineinfile:
     state: present
     dest: /etc/rc.local
     insertbefore: "exit 0"
     line: "su misp -c 'bash /opt/misp-server/misp/app/Console/worker/start.sh'"
+  when: not ansible_service_mgr == 'systemd'
+
+- name: Create MISP worker service (systemd)
+  copy:
+    src: misp-workers.service
+    dest: /etc/systemd/system/misp-workers.service
+  when: ansible_service_mgr == 'systemd'
+  become: true
+
+- name: Enable MISP worker service (systemd)
+  systemd:
+    name: "misp-workers"
+    enabled: yes
+    daemon_reload: yes
+  when: ansible_service_mgr == 'systemd'
+  become: true
 
 - name: MISP app and its tmp directories permissions
   file:
