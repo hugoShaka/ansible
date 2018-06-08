@@ -13,10 +13,10 @@
     mode: 0775
     state: directory
 
-- include_tasks: setup-Debian.yml
+- include: setup-Debian.yml
   when: ansible_distribution == 'Debian'
 
-- include_tasks: setup-Ubuntu.yml
+- include: setup-Ubuntu.yml
   when: ansible_distribution == 'Ubuntu'
 
 ######### MISP users and groups #########
