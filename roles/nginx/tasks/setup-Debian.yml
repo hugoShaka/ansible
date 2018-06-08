@@ -1,0 +1,17 @@
+---
+
+- name: Install all needed packages (Debian Stretch)
+  apt:
+    pkg: "{{ item }}"
+    state: latest
+    update_cache: yes
+  with_items:
+    - nginx
+    - php7.0-fpm
+  when: ansible_distribution_release == "stretch"
+
+- name: Set facts (Debian Stretch)
+  set_fact:
+    misp_fast_cgi_pass: "unix:/var/run/php/php7.0-fpm.sock"
+  when: ansible_distribution_release == "stretch"
+
