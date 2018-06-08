@@ -79,6 +79,7 @@
 ######### MISP REPOSITORY #########
 
 # TODO(shaka) : checkout to a revision tag, do not use master
+# TODO(shaka) : put the install path into a variable
 - name: Clone MISP repository
   become: true
   become_user: misp
